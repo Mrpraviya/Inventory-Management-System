@@ -11,5 +11,5 @@ app.use('/api/auth', authRoutes);
 
 app.listen(process.env.PORT,() => {
     connectDB();
-    console.log("Sever is running on http//localhost:3000");
+    console.log("Sever is running on http://localhost:3000");
 })
