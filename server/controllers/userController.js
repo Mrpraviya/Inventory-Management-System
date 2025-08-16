@@ -1,4 +1,3 @@
-
 import User from "../models/User.js";
 import bcrypt, { hash } from "bcrypt";
 const addUser = async (req, res) => {
@@ -58,7 +57,10 @@ const getUser = async (req, res) => {
     console.error("Error fetching User profile:", error);
     return res
       .status(500)
-      .json({ success: false, message: "Server error in getting User profile" });
+      .json({
+        success: false,
+        message: "Server error in getting User profile",
+      });
   }
 };
 
@@ -67,7 +69,7 @@ const updateUserProfile = async (req, res) => {
     const userId = req.user._id; // Assuming user ID is stored in req.user
     const { name, email, address, password } = req.body;
 
-    const updatedata = {name, email, address};
+    const updatedata = { name, email, address };
 
     if (password && password.trim() !== "") {
       // Hash the new password
@@ -75,11 +77,10 @@ const updateUserProfile = async (req, res) => {
       updatedata.password = hashedPassword;
     }
 
-    const updatedUser = await User.findByIdAndUpdate(
-      userId,
-      updatedata,
-      { new: true, runValidators: true }
-    ).select("-password");
+    const updatedUser = await User.findByIdAndUpdate(userId, updatedata, {
+      new: true,
+      runValidators: true,
+    }).select("-password");
     if (!updatedUser) {
       return res
         .status(404)
@@ -91,14 +92,16 @@ const updateUserProfile = async (req, res) => {
       message: "Profile updated successfully",
       user: updatedUser,
     });
-  }
-  catch (error) {
+  } catch (error) {
     console.error("Error updating User profile:", error);
     return res
       .status(500)
-      .json({ success: false, message: "Server error in updating User profile" });
+      .json({
+        success: false,
+        message: "Server error in updating User profile",
+      });
   }
-}
+};
 
 const deleteUser = async (req, res) => {
   try {

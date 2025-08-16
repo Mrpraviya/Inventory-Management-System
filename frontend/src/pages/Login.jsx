@@ -43,7 +43,7 @@
 
 //   return (
 //     <div
-//       className="flex flex-col items-center h-screen justify-center 
+//       className="flex flex-col items-center h-screen justify-center
 //         bg-gradient-to-b from-green-600 from 50% to-gray-100 to 50% space-y-6"
 //     >
 //       <h2 className="text-3xl text-white">Inventory Management System</h2>
@@ -142,7 +142,7 @@
 
 //   return (
 //     <div
-//       className="flex flex-col items-center h-screen justify-center 
+//       className="flex flex-col items-center h-screen justify-center
 //         bg-gradient-to-b from-green-600 from-50% to-gray-100 to-50% space-y-6"
 //     >
 //       <h2 className="text-3xl text-white">Inventory Management System</h2>
@@ -208,10 +208,13 @@ const Login = () => {
     setError(""); // clear error on new submit
 
     try {
-      const response = await axios.post("http://localhost:3000/api/auth/login", {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        "http://localhost:3000/api/auth/login",
+        {
+          email,
+          password,
+        }
+      );
 
       console.log("Login Response:", response.data);
 
@@ -293,5 +296,3 @@ const Login = () => {
 };
 
 export default Login;
-
-

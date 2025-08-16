@@ -46,13 +46,10 @@ function App() {
             <Route path="logout" element={<Logout />} />
           </Route>
           <Route path="/customer-dashboard" element={<Dashboard />}>
-            <Route index element={ <CustomerProducts /> }></Route>
-            <Route path ="orders" element={ <Orders /> }></Route>
-            <Route path ="logout" element={<Logout />}></Route>
-            <Route path ="profile" element={<Profile />}></Route>
-
-
-
+            <Route index element={<CustomerProducts />}></Route>
+            <Route path="orders" element={<Orders />}></Route>
+            <Route path="logout" element={<Logout />}></Route>
+            <Route path="profile" element={<Profile />}></Route>
           </Route>
 
           <Route path="/login" element={<Login />} />
