@@ -34,11 +34,15 @@ const addOrder = async (req, res) => {
       .json({ success: false, error: "Server error in adding order" });
   }
 };
-
+ 
 const getOrders = async (req, res) => {
   try {
     const userId = req.user._id;
-    const orders = await Order.find({ customer: userId })
+    let query = {};
+    if (req.user.role === "customer") {
+      query = { customer: userId };
+    }
+    const orders = await Order.find(query)
       .populate({
         path: "product",
         populate: { path: "categoryId", select: "categoryName" },

@@ -144,15 +144,15 @@ const CustomerProducts = () => {
 
   return (
     <div>
-      <div className="py-4 px-6">
-        <h1 className="text-xl font-bold ">Products</h1>
+      <div className="py-2 px-4">
+        <h1 className="text-3xl font-bold mb-8">Customer Products</h1>
       </div>
       <div className="flex justify-between items-center py-4 px-6">
-        <div>
+        <div className="w-full max-w-xs">
           <select
             name="category"
-            id=""
-            className="border p-1 bg-white rounded px-4"
+            id="category"
+            className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-gray-700 shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-400 transition-all duration-200 ease-in-out cursor-pointer hover:border-indigo-400"
             onChange={handleChangeCategory}
             defaultValue=""
           >
@@ -172,57 +172,61 @@ const CustomerProducts = () => {
           <input
             type="text"
             placeholder="Search here"
-            className="border p-1 bg-white rounded px-4"
+            className="border py-2 bg-white rounded-lg px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 hover:scale-[1.02]"
             onChange={handleSearch}
           />
         </div>
       </div>
 
       <div>
-        <table className="mt-4 w-full border-collapse border border-gray-300">
-          <thead>
-            <tr className="bg-gray-200">
-              <th className="border border-gray-300 p-2">S. No</th>
-              <th className="border border-gray-300 p-2">Product Name</th>
-              <th className="border border-gray-300 p-2">Category Name</th>
-              <th className="border border-gray-300 p-2">Price in ($)</th>
-              <th className="border border-gray-300 p-2">Stock</th>
-              <th className="border border-gray-300 p-2">Action</th>
+        <table className="mt-6 w-full text-m text-center shadow-lg rounded-lg overflow-hidden hover:scale-[1.01] transition-transform duration-200">
+          <thead className="bg-gradient-to-r from-green-500 via-emerald-600 to-gray-800 text-white">
+            <tr>
+              <th className="px-4 py-3">S. No</th>
+              <th className="px-4 py-3">Product Name</th>
+              <th className="px-4 py-3">Category Name</th>
+              <th className="px-4 py-3">Price in ($)</th>
+              <th className="px-4 py-3">Stock</th>
+              <th className="px-4 py-3">Action</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="bg-white">
             {filteredproducts &&
               filteredproducts.map((product, index) => (
-                <tr key={product._id}>
-                  <td className="border border-gray-300 p-2">{index + 1}</td>
-                  <td className="border border-gray-300 p-2">{product.name}</td>
-                  <td className="border border-gray-300 p-2">
+                <tr
+                  key={product._id}
+                  className="hover:bg-gray-200 transition-colors duration-200 border border-gray-300"
+                >
+                  <td className="px-4 py-3 font-medium text-gray-700">
+                    {index + 1}
+                  </td>
+                  <td className="px-4 py-3 font-medium text-gray-700">
+                    {product.name}
+                  </td>
+                  <td className="px-4 py-3 font-medium text-gray-700">
                     {product.categoryId?.categoryName || "N/A"}
                   </td>
-
-                  <td className="border border-gray-300 p-2">
+                  <td className="px-4 py-3 font-medium text-gray-700">
                     {product.price}
                   </td>
-                  <td className="border border-gray-300 p-2">
-                    <span className="font-semibold rounded-full">
-                      {product.stock == 0 ? (
-                        <span className="text-red-600 bg-red-200 px-2 py-1 rounded-full">
-                          {product.stock}
-                        </span>
-                      ) : product.stock < 5 ? (
-                        <span className="text-yellow-600 bg-yellow-200 px-2 py-1 rounded-full">
-                          {product.stock}
-                        </span>
-                      ) : (
-                        <span className="text-green-600 bg-green-200 px-2 py-1 rounded-full">
-                          {product.stock}
-                        </span>
-                      )}
-                    </span>
+                  <td className="px-4 py-3 font-medium text-gray-700">
+                    {product.stock === 0 ? (
+                      <span className="text-red-600 bg-red-200 px-3 py-1 rounded-full font-semibold">
+                        {product.stock}
+                      </span>
+                    ) : product.stock < 5 ? (
+                      <span className="text-yellow-600 bg-yellow-200 px-3 py-1 rounded-full font-semibold">
+                        {product.stock}
+                      </span>
+                    ) : (
+                      <span className="text-green-600 bg-green-200 px-3 py-1 rounded-full font-semibold">
+                        {product.stock}
+                      </span>
+                    )}
                   </td>
-                  <td className="border border-gray-300 p-2">
+                  <td className="px-4 py-3 flex justify-center">
                     <button
-                      className="px-2 py-1 bg-green-500 text-white rounded mr-2 hover:bg-green-600 cursor-pointer"
+                      className="px-4 py-1.5 bg-green-500 text-white rounded-lg shadow-sm hover:bg-green-600 focus:ring-2 focus:ring-green-300 transition-all duration-200 cursor-pointer"
                       onClick={() => handleOrderChange(product)}
                     >
                       Order
@@ -232,6 +236,7 @@ const CustomerProducts = () => {
               ))}
           </tbody>
         </table>
+
         {filteredproducts.length === 0 && (
           <div className="text-center mt-4">No products found</div>
         )}

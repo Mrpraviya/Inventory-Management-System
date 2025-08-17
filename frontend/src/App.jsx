@@ -13,6 +13,7 @@ import Users from "./components/Users";
 import CustomerProducts from "./components/CustomerProducts";
 import Orders from "./components/Orders";
 import Profile from "./components/Profile";
+import Summary from "./components/Summary";
 
 function App() {
   return (
@@ -29,7 +30,9 @@ function App() {
               </ProtecedRoutes>
             }
           >
-            <Route index element={<h1>Summary of dashboard</h1>} />
+            <Route index element={
+              < Summary />
+            } />
 
             <Route path="categories" element={<Categories />} />
 
@@ -37,11 +40,11 @@ function App() {
 
             <Route path="suppliers" element={<Supplier />} />
 
-            <Route path="orders" element={<h1>Orders</h1>} />
+            <Route path="orders" element={<Orders />} />
 
             <Route path="users" element={<Users />} />
 
-            <Route path="profile" element={<h1>Profile</h1>} />
+            <Route path="profile" element={<Profile />} />
 
             <Route path="logout" element={<Logout />} />
           </Route>

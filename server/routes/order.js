@@ -8,3 +8,4 @@ router.post("/add", authMiddleware, addOrder);
 router.get("/", authMiddleware, getOrders);
 
 export default router;
+

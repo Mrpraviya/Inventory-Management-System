@@ -157,8 +157,11 @@ const Supplier = () => {
           alert("Failed to delete supplier.Please try again. ");
         }
       } catch (error) {
-        console.error("Error deleting Supplier:", error);
-        alert("Error deleting Supplier. See console for details.");
+        if (error.response) {
+          alert(error.response.data.message);
+        } else {
+          alert("Error deleting supplier. See console for details.");
+        }
       }
     }
   };
@@ -178,16 +181,16 @@ const Supplier = () => {
 
   return (
     <div className="w-full h-full p-4 flex flex-col gap-4">
-      <h1 className="text-2xl font-bold">Supplier Management</h1>
+      <h1 className="text-3xl font-bold">Supplier Management</h1>
       <div className="flex justify-between items-center">
         <input
           type="text"
           placeholder="Search here"
-          className="border p-1 bg-white rounded px-4"
+          className="border p-1 bg-white rounded px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 hover:scale-[1.02]"
           onChange={handleSearch}
         />
         <button
-          className="px-4 py-1.5 bg-blue-500 text-white rounded cursor-pointer"
+          className="px-4 py-1.5 bg-blue-500 text-white rounded cursor-pointer hover:scale-[1.02]"
           onClick={() => {
             setFormData({ name: "", email: "", phone: "", address: "" });
             setEditSupplier(null);
@@ -201,55 +204,48 @@ const Supplier = () => {
         <div>Loading...</div>
       ) : (
         <div>
-          <table className="mt-4 w-full border-collapse border border-gray-300">
-            <thead>
-              <tr className="bg-gray-200">
-                <th className="border border-gray-300 p-2">S No</th>
-                <th className="border border-gray-300 p-2">Name</th>
-                <th className="border border-gray-300 p-2">Email</th>
-                <th className="border border-gray-300 p-2">Phone Number</th>
-                <th className="border border-gray-300 p-2">Address</th>
-                <th className="border border-gray-300 p-2">Actions</th>
+          <table className="mt-6 w-full text-m text-center shadow-lg rounded-lg overflow-hidden hover:scale-[1.01] transition-transform duration-200">
+            <thead className="bg-gradient-to-r from-green-500 via-emerald-600 to-gray-800 text-white">
+              <tr>
+                <th className="px-4 py-3">Serial No</th>
+                <th className="px-4 py-3">Name</th>
+                <th className="px-4 py-3">Email</th>
+                <th className="px-4 py-3">Phone Number</th>
+                <th className="px-4 py-3">Address</th>
+                <th className="px-4 py-3">Actions</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="bg-white">
               {filteredSuppliers.map((supplier, index) => (
-                <tr key={supplier._id}>
-                  <td className="border border-gray-300 p-2">{index + 1}</td>
-                  <td className="border border-gray-300 p-2">
+                <tr
+                  key={supplier._id}
+                  className="hover:bg-gray-200 transition-colors duration-200 border border-gray-300"
+                >
+                  <td className="px-4 py-3 font-medium text-gray-700">
+                    {index + 1}
+                  </td>
+                  <td className="px-4 py-3 font-medium text-gray-700">
                     {supplier.name}
                   </td>
-                  <td className="border border-gray-300 p-2">
+                  <td className="px-4 py-3 font-medium text-gray-700">
                     {supplier.email}
                   </td>
-                  <td className="border border-gray-300 p-2">
+                  <td className="px-4 py-3 font-medium text-gray-700">
                     {supplier.phone}
                   </td>
-                  <td className="border border-gray-300 p-2">
+                  <td className="px-4 py-3 font-medium text-gray-700">
                     {supplier.address}
                   </td>
-                  <td className="border border-gray-300 p-2">
+                  <td className="px-4 py-3 flex justify-center space-x-2">
                     <button
-                      className="px-2 py-1 bg-yellow-500 text-white rounded mr-2 hover:bg-yellow-600 cursor-pointer"
-                      onClick={() => {
-                        handleEdit(supplier);
-                      }}
-                      //   setAddEditModal(1);
-                      //   setFormData({
-                      //     name: supplier.name,
-                      //     email: supplier.email,
-                      //     phone: supplier.phone,
-                      //     address: supplier.address,
-                      //   });
-                      // }}
+                      className="px-3 py-1.5 bg-yellow-500 text-white rounded-lg shadow-sm hover:bg-yellow-600 focus:ring-2 focus:ring-yellow-300 transition-all duration-200 cursor-pointer"
+                      onClick={() => handleEdit(supplier)}
                     >
                       Edit
                     </button>
                     <button
-                      className="px-2 py-1 bg-red-500 text-white rounded  hover:bg-red-600 cursor-pointer"
-                      onClick={() => {
-                        handleDelete(supplier._id);
-                      }}
+                      className="px-3 py-1.5 bg-red-500 text-white rounded-lg shadow-sm hover:bg-red-600 focus:ring-2 focus:ring-red-300 transition-all duration-200 cursor-pointer"
+                      onClick={() => handleDelete(supplier._id)}
                     >
                       Delete
                     </button>
@@ -258,6 +254,7 @@ const Supplier = () => {
               ))}
             </tbody>
           </table>
+
           {filteredSuppliers.length === 0 && (
             <div className="text-center mt-4">No suppliers found</div>
           )}
@@ -266,7 +263,7 @@ const Supplier = () => {
 
       {addModal && (
         <div className="fixed top-0 left-0 w-full h-full bg-black/50 flex justify-center items-center">
-          <div className="bg-white p-4 rounded shadow-md w-1/3 relative">
+          <div className="bg-white p-4 rounded shadow-md w-1/4 relative">
             <h1 className="text-xl font-bold mb-4">Add Supplier</h1>
 
             <form className="flex flex-col gap-4 mt-4" onSubmit={handleSubmit}>
@@ -285,7 +282,7 @@ const Supplier = () => {
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="Supplier Name"
-                className="border p-1 bg-white rounded px-4"
+                className="border p-1 bg-white rounded-md px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
 
               <input
@@ -294,7 +291,7 @@ const Supplier = () => {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="Supplier Email"
-                className="border p-1 bg-white rounded px-4"
+                className="border p-1 bg-white rounded-md px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
 
               <input
@@ -303,7 +300,7 @@ const Supplier = () => {
                 value={formData.phone}
                 onChange={handleChange}
                 placeholder="Supplier Phone No."
-                className="border p-1 bg-white rounded px-4"
+                className="border p-1 bg-white rounded-md px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
 
               <input
@@ -312,7 +309,7 @@ const Supplier = () => {
                 value={formData.address}
                 onChange={handleChange}
                 placeholder="Supplier Address"
-                className="border p-1 bg-white rounded px-4"
+                className="border p-1 bg-white rounded-md px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
 
               {/* <button

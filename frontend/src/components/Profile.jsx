@@ -51,25 +51,27 @@ const Profile = () => {
         }
       );
       if (response.data.success) {
-        alert("Profile updated successfully");
+        alert("✅ Profile updated successfully");
         setEdit(false);
       } else {
         alert("Error updating profile. Please try again.");
       }
     } catch (error) {
-      console.error("Error updating profile:", error);
-      alert("Error updating profile. Please try again.");
+      console.error("⚠️ Error updating profile:", error);
+      alert("⚠️ Error updating profile. Please try again.");
     }
   };
 
   return (
-    <div>
-      <div className="p-5">
+    <div className="flex justify-center items-center min-h-screen  p-6">
+      <div className="w-full max-w-lg">
         <form
           className="bg-white p-6 rounded-lg shadow max-w-md"
           onSubmit={handleSubmit}
         >
-          <h2 className="font-bold text-2xl">My Profile</h2>
+          <h2 className="font-bold text-3xl text-center text-gray-800 mb-6">
+            My Profile
+          </h2>
           <div className="mb-4 mt-4">
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Name
@@ -80,7 +82,12 @@ const Profile = () => {
               value={user.name}
               onChange={(e) => setUser({ ...user, name: e.target.value })}
               disabled={!edit}
-              className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className={`w-full p-3 border rounded-lg transition-all duration-200 
+               ${
+                 edit
+                   ? "focus:outline-none focus:ring-2 focus:ring-blue-500"
+                   : "bg-gray-100 cursor-not-allowed"
+               }`}
             />
           </div>
           <div className="mb-4">
@@ -93,7 +100,12 @@ const Profile = () => {
               value={user.email}
               onChange={(e) => setUser({ ...user, email: e.target.value })}
               disabled={!edit}
-              className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className={`w-full p-3 border rounded-lg transition-all duration-200 
+               ${
+                 edit
+                   ? "focus:outline-none focus:ring-2 focus:ring-blue-500"
+                   : "bg-gray-100 cursor-not-allowed"
+               }`}
             />
           </div>
           <div className="mb-4">
@@ -105,19 +117,25 @@ const Profile = () => {
               value={user.address}
               onChange={(e) => setUser({ ...user, address: e.target.value })}
               disabled={!edit}
-              className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className={`w-full p-3 border rounded-lg transition-all duration-200 
+               ${
+                 edit
+                   ? "focus:outline-none focus:ring-2 focus:ring-blue-500"
+                   : "bg-gray-100 cursor-not-allowed"
+               }`}
               rows="3"
             ></textarea>
           </div>
+
           {edit && (
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Password
+              <label className="block text-sm font-medium text-gray-600 mb-1">
+                New Password <span className="text-gray-400">(optional)</span>
               </label>
               <input
                 type="password"
                 name="password"
-                placeholder="Enter new password(optional)"
+                placeholder="Enter new password"
                 onChange={(e) => setUser({ ...user, password: e.target.value })}
                 className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
@@ -128,7 +146,7 @@ const Profile = () => {
             <button
               type="button"
               onClick={() => setEdit(!edit)}
-              className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+              className="w-full px-6 py-2.5  bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 focus:ring-2 focus:ring-blue-400 transition-all duration-200 cursor-pointer"
             >
               Update Profile
             </button>
@@ -136,14 +154,14 @@ const Profile = () => {
             <>
               <button
                 type="submit"
-                className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 ml-2 cursor-pointer"
+                className="px-4  py-3 justify-center space-x-4 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 ml-2 cursor-pointer"
               >
                 Save Changes
               </button>
               <button
                 type="button"
                 onClick={() => setEdit(!edit)}
-                className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 ml-2 cursor-pointer"
+                className="px-4  py-3 justify-center space-x-4 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 ml-2 cursor-pointer"
                 title="Cancel"
               >
                 Cancel
@@ -157,3 +175,4 @@ const Profile = () => {
 };
 
 export default Profile;
+

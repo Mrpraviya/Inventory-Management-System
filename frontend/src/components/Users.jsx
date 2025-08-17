@@ -120,19 +120,19 @@ const Users = () => {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold mb-8"> Users Manegement</h1>
+      <h1 className="text-3xl font-bold mb-8"> Users Management</h1>
 
       <div className="flex flex-col lg:flex-row gap-4">
         <div className="lg:w-1/3">
-          <div className="bg-white p-4 rounded-lg shadow-md ">
-            <h2 className="text-center text-xl font-bold mb-4">Add Users</h2>
+          <div className="bg-white p-4 rounded-lg shadow-md hover:scale-[1.01]">
+            <h2 className="text-center text-2xl font-bold mb-4">Add Users</h2>
             <form className="space-y-4" onSubmit={handleSubmit}>
               <div>
                 <input
                   type="text"
                   placeholder="User Name"
                   name="name"
-                  className="border rounded-md p-2 mb-4 w-full"
+                  className="w-full mb-4 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   onChange={handleChange}
                 />
               </div>
@@ -142,7 +142,7 @@ const Users = () => {
                   type="email"
                   placeholder="User Email"
                   name="email"
-                  className="border rounded-md p-2 mb-4 w-full"
+                  className="w-full mb-4 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   onChange={handleChange}
                 />
               </div>
@@ -151,7 +151,7 @@ const Users = () => {
                   type="password"
                   placeholder="User Password"
                   name="password"
-                  className="border rounded-md p-2 mb-4 w-full"
+                  className="w-full mb-4 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   onChange={handleChange}
                 />
               </div>
@@ -160,14 +160,14 @@ const Users = () => {
                   type="address"
                   placeholder="User Address"
                   name="address"
-                  className="border rounded-md p-2 mb-4 w-full"
+                  className="w-full mb-4 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   onChange={handleChange}
                 />
               </div>
               <div>
                 <select
                   name="role"
-                  className="border rounded-md p-2 mb-4 w-full"
+                  className="w-full mb-4 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   onChange={handleChange}
                 >
                   <option value="">Selct Role</option>
@@ -191,58 +191,62 @@ const Users = () => {
           <input
             type="text"
             placeholder="Search User"
-            className="border rounded-md p-2 mb-4 w-full"
+            className=" bg-white border rounded-md p-2 mb-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 hover:scale-[1.02]"
+            // className="border p-1 bg-white rounded px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 hover:scale-[1.02]"
             onChange={handleSearch}
           />
-          <div className="bg-white shadow-md rounded-1g p-4">
-            <table className="w-full border-collapse border border-gray-200">
-              <thead>
-                <tr className="bg-gray-100">
-                  <th className="border border-gray-200 p-2">Serial No</th>
-                  <th className="border border-gray-200 p-2">User Name</th>
-                  <th className="border border-gray-200 p-2">Email</th>
-                  <th className="border border-gray-200 p-2">Address</th>
-                  <th className="border border-gray-200 p-2">Role</th>
-                  <th className="border border-gray-200 p-2">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredUsers &&
-                  filteredUsers.map((user, index) => (
-                    <tr key={index}>
-                      <td className="border border-gray-200 p-2">
-                        {index + 1}{" "}
-                      </td>
-                      <td className="border border-gray-200 p-2">
-                        {user.name}
-                      </td>
-                      <td className="border border-gray-200 p-2">
-                        {user.email}
-                      </td>
-                      <td className="border border-gray-200 p-2">
-                        {user.address}
-                      </td>
-                      <td className="border border-gray-200 p-2">
-                        {user.role}
-                      </td>
-                      <td className="border border-gray-200 p-2">
-                        <button
-                          className="bg-red-500 text-white p-2 rounded-md hover:bg-red-600 mr-2 cursor-pointer"
-                          onClick={() => handleDelete(user._id)}
-                        >
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-            {filteredUsers.length === 0 && (
-              <div className="text-center text-gray-500 mt-4">
-                No users found.
-              </div>
-            )}
-          </div>
+
+          <table className="w-full text-m text-center shadow-lg rounded-xl overflow-hidden hover:scale-[1.01] transition-transform duration-200">
+            <thead className="bg-gradient-to-r from-green-500 via-emerald-600 to-gray-800 text-white">
+              <tr>
+                <th className="px-4 py-3">Serial No</th>
+                <th className="px-4 py-3">User Name</th>
+                <th className="px-4 py-3">Email</th>
+                <th className="px-4 py-3">Address</th>
+                <th className="px-4 py-3">Role</th>
+                <th className="px-4 py-3 text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody className="bg-white">
+              {filteredUsers &&
+                filteredUsers.map((user, index) => (
+                  <tr
+                    key={index}
+                    className="hover:bg-gray-200 transition-colors duration-200 border border-gray-300"
+                  >
+                    <td className="px-4 py-3 font-medium text-gray-700">
+                      {index + 1}
+                    </td>
+                    <td className="px-4 py-3 font-medium text-gray-700">
+                      {user.name}
+                    </td>
+                    <td className="px-4 py-3 font-medium text-gray-700">
+                      {user.email}
+                    </td>
+                    <td className="px-4 py-3 font-medium text-gray-700">
+                      {user.address}
+                    </td>
+                    <td className="px-4 py-3 font-medium text-gray-700">
+                      {user.role}
+                    </td>
+                    <td className="px-4 py-3 flex justify-center space-x-2">
+                      <button
+                        className="px-3 py-1.5 bg-red-500 text-white rounded-lg shadow-sm hover:bg-red-600 focus:ring-2 focus:ring-red-300 transition-all duration-200 cursor-pointer"
+                        onClick={() => handleDelete(user._id)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+
+          {filteredUsers.length === 0 && (
+            <div className="text-center text-gray-500 mt-4">
+              No users found.
+            </div>
+          )}
         </div>
       </div>
     </div>

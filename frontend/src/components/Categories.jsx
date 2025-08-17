@@ -64,8 +64,11 @@ const Categories = () => {
           alert("Failed to delete category.Please try again. ");
         }
       } catch (error) {
-        console.error("Error deleting category:", error);
-        alert("Error deleting category. See console for details.");
+        if (error.response) {
+          alert(error.response.data.message);
+        } else {
+          alert("Error deleting category. See console for details.");
+        }
       }
     }
   };
@@ -134,14 +137,13 @@ const Categories = () => {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold mb-8"> Category Manegement</h1>
+      <h1 className="text-3xl font-bold mb-8"> Category Manegement</h1>
 
       <div className="flex flex-col lg:flex-row gap-4">
         <div className="lg:w-1/3">
-          <div className="bg-white p-4 rounded-lg shadow-md ">
+          <div className="bg-white p-4 rounded-lg shadow-md hover:scale-[1.01]">
             <h2 className="text-center text-xl font-bold mb-4">
-              {editCategory ? "Edit Category" : "Add Category"}
-              Add Category
+              {editCategory ? "Edit Category" : "Add New Category"}
             </h2>
             <form className="space-y-4" onSubmit={handleSubmit}>
               <div>
@@ -149,7 +151,8 @@ const Categories = () => {
                   type="text"
                   placeholder="Category Name"
                   value={categoryName}
-                  className="border rounded-md p-2 mb-4 w-full"
+                   
+                  className="w-full mb-4 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   onChange={(e) => setCategoryName(e.target.value)}
                 />
               </div>
@@ -159,7 +162,7 @@ const Categories = () => {
                   type="text"
                   placeholder="Category Description"
                   value={categoryDescription}
-                  className="border rounded-md p-2  w-full"
+                  className="w-full mb-4 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   onChange={(e) => setCategoryDescription(e.target.value)}
                 />
               </div>
@@ -184,42 +187,45 @@ const Categories = () => {
           </div>
         </div>
 
-        <div className="lg:w-2/3">
-          <div className="bg-white shadow-md rounded-1g p-4">
-            <table className="w-full border-collapse border border-gray-200">
-              <thead>
-                <tr className="bg-gray-100">
-                  <th className="border border-gray-200 p-2">Serial No</th>
-                  <th className="border border-gray-200 p-2">Category Name</th>
-                  <th className="border border-gray-200 p-2">Action</th>
+        <div className="lg:w-2/3 ">
+          <table className="w-full text-m text-center shadow-lg rounded-xl overflow-hidden hover:scale-[1.01]">
+            <thead className="bg-gradient-to-r from-green-500 via-emerald-600 to-gray-800 text-white">
+              <tr>
+                <th className="px-4 py-3">Serial No</th>
+                <th className="px-4 py-3">Category Name</th>
+                <th className="px-4 py-3 text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody className="bg-white">
+              {categories.map((category, index) => (
+                <tr
+                  key={index}
+                  className="hover:bg-gray-200 transition-colors duration-200 border border-gray-300"
+                >
+                  <td className="px-4 py-3 font-medium text-gray-700">
+                    {index + 1}
+                  </td>
+                  <td className="px-4 py-3 font-medium text-gray-700">
+                    {category.categoryName}
+                  </td>
+                  <td className="px-4 py-3 flex justify-center space-x-2">
+                    <button
+                      className="px-3 py-1.5 bg-yellow-500 text-white rounded-lg shadow-sm hover:bg-yellow-600 focus:ring-2 focus:ring-yellow-300 transition-all duration-200 cursor-pointer"
+                      onClick={() => handleEdit(category)}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="px-3 py-1.5 bg-red-500 text-white rounded-lg shadow-sm hover:bg-red-600 focus:ring-2 focus:ring-red-300 transition-all duration-200 cursor-pointer"
+                      onClick={() => handleDelete(category._id)}
+                    >
+                      Delete
+                    </button>
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {categories.map((category, index) => (
-                  <tr key={index}>
-                    <td className="border border-gray-200 p-2">{index + 1} </td>
-                    <td className="border border-gray-200 p-2">
-                      {category.categoryName}
-                    </td>
-                    <td className="border border-gray-200 p-2">
-                      <button
-                        className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 mr-2"
-                        onClick={() => handleEdit(category)}
-                      >
-                        Edit
-                      </button>
-                      <button
-                        className="bg-red-500 text-white p-2 rounded-md hover:bg-red-600 mr-2"
-                        onClick={() => handleDelete(category._id)}
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

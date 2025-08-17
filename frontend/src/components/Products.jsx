@@ -192,16 +192,16 @@ const Products = () => {
 
   return (
     <div className="w-full h-full p-4 flex flex-col gap-4">
-      <h1 className="text-2xl font-bold">Product Management</h1>
+      <h1 className="text-3xl font-bold">Product Management</h1>
       <div className="flex justify-between items-center">
         <input
           type="text"
           placeholder="Search here"
-          className="border p-1 bg-white rounded px-4"
+          className="border p-1 bg-white rounded px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 hover:scale-[1.02]"
           onChange={handleSearch}
         />
         <button
-          className="px-4 py-1.5 bg-blue-500 text-white rounded cursor-pointer"
+          className="px-4 py-1.5 bg-blue-500 text-white rounded cursor-pointer hover:scale-[1.02]"
           onClick={() => {
             // setEditproduct(null);
             setOpenModal(true);
@@ -212,72 +212,65 @@ const Products = () => {
       </div>
 
       <div>
-        <table className="mt-4 w-full border-collapse border border-gray-300">
-          <thead>
-            <tr className="bg-gray-200">
-              <th className="border border-gray-300 p-2">S. No</th>
-              <th className="border border-gray-300 p-2">Product Name</th>
-              <th className="border border-gray-300 p-2">Category Name</th>
-              <th className="border border-gray-300 p-2">Supplier Name</th>
-              <th className="border border-gray-300 p-2">Price in ($)</th>
-              <th className="border border-gray-300 p-2">Stock</th>
-              <th className="border border-gray-300 p-2">Action</th>
+        <table className="mt-6 w-full text-sm text-center shadow-lg rounded-lg overflow-hidden hover:scale-[1.01]">
+          <thead className="bg-gradient-to-r from-green-500 via-emerald-600 to-gray-800 text-white">
+            <tr>
+              <th className="px-4 py-3">Serial No</th>
+              <th className="px-4 py-3">Product Name</th>
+              <th className="px-4 py-3">Category Name</th>
+              <th className="px-4 py-3">Supplier Name</th>
+              <th className="px-4 py-3">Price ($)</th>
+              <th className="px-4 py-3">Stock</th>
+              <th className="px-4 py-3">Action</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="bg-white">
             {filteredproducts &&
               filteredproducts.map((product, index) => (
-                <tr key={product._id}>
-                  <td className="border border-gray-300 p-2">{index + 1}</td>
-                  <td className="border border-gray-300 p-2">{product.name}</td>
-                  <td className="border border-gray-300 p-2">
+                <tr
+                  key={product._id}
+                  className="hover:bg-gray-200 transition-colors duration-200 border border-gray-300"
+                >
+                  <td className="px-4 py-3 font-medium text-gray-700">
+                    {index + 1}
+                  </td>
+                  <td className="px-4 py-3 font-medium text-gray-700">
+                    {product.name}
+                  </td>
+                  <td className="px-4 py-3 font-medium text-gray-700">
                     {product.categoryId?.categoryName || "N/A"}
                   </td>
-                  <td className="border border-gray-300 p-2">
+                  <td className="px-4 py-3 font-medium text-gray-700">
                     {product.supplierId?.name || "N/A"}
                   </td>
-                  <td className="border border-gray-300 p-2">
+                  <td className="px-4 py-3 text-gray-700 font-semibold">
                     {product.price}
                   </td>
-                  <td className="border border-gray-300 p-2">
-                    <span className="font-semibold rounded-full">
-                      {product.stock == 0 ? (
-                        <span className="text-red-600 bg-red-200 px-2 py-1 rounded-full">
-                          {product.stock}
-                        </span>
-                      ) : product.stock < 5 ? (
-                        <span className="text-yellow-600 bg-yellow-200 px-2 py-1 rounded-full">
-                          {product.stock}
-                        </span>
-                      ) : (
-                        <span className="text-green-600 bg-green-200 px-2 py-1 rounded-full">
-                          {product.stock}
-                        </span>
-                      )}
-                    </span>
+                  <td className="px-4 py-3">
+                    {product.stock === 0 ? (
+                      <span className="text-red-700 bg-red-200 px-3 py-1 rounded-full text-xs font-semibold">
+                        {product.stock}
+                      </span>
+                    ) : product.stock < 5 ? (
+                      <span className="text-yellow-700 bg-yellow-200 px-3 py-1 rounded-full text-xs font-semibold">
+                        {product.stock}
+                      </span>
+                    ) : (
+                      <span className="text-green-700 bg-green-200 px-3 py-1 rounded-full text-xs font-semibold">
+                        {product.stock}
+                      </span>
+                    )}
                   </td>
-                  <td className="border border-gray-300 p-2">
+                  <td className="px-4 py-3 flex justify-center space-x-2">
                     <button
-                      className="px-2 py-1 bg-yellow-500 text-white rounded mr-2 hover:bg-yellow-600 cursor-pointer"
-                      onClick={() => {
-                        handleEdit(product);
-                      }}
-                      //   setAddEditModal(1);
-                      //   setFormData({
-                      //     name: product.name,
-                      //     email: product.email,
-                      //     phone: product.phone,
-                      //     address: product.address,
-                      //   });
-                      // }}
+                      className="px-3 py-1.5 bg-yellow-500 text-white rounded-lg shadow-sm hover:bg-yellow-600 focus:ring-2 focus:ring-yellow-300 transition-all duration-200 cursor-pointer"
+                      onClick={() => handleEdit(product)}
                     >
                       Edit
                     </button>
                     <button
-                      className="px-2 py-1 bg-red-500 text-white rounded  hover:bg-red-600 cursor-pointer"
-                      onClick={() => {
-                        handleDelete(product._id);
-                      }}
+                      className="px-3 py-1.5 bg-red-500 text-white rounded-lg shadow-sm hover:bg-red-600 focus:ring-2 focus:ring-red-300 transition-all duration-200 cursor-pointer"
+                      onClick={() => handleDelete(product._id)}
                     >
                       Delete
                     </button>
@@ -286,6 +279,7 @@ const Products = () => {
               ))}
           </tbody>
         </table>
+
         {filteredproducts.length === 0 && (
           <div className="text-center mt-4">No products found</div>
         )}
@@ -293,7 +287,7 @@ const Products = () => {
 
       {openModal && (
         <div className="fixed top-0 left-0 w-full h-full bg-black/50 flex justify-center items-center">
-          <div className="bg-white p-4 rounded shadow-md w-1/3 relative">
+          <div className="bg-white p-4 rounded shadow-md w-1/4 relative">
             <h1 className="text-xl font-bold mb-4">Add Products</h1>
 
             <form className="flex flex-col gap-4 mt-4" onSubmit={handleSubmit}>
@@ -312,7 +306,7 @@ const Products = () => {
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="Product Name"
-                className="border p-1 bg-white rounded px-4"
+                className="border p-1 bg-white rounded-md px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
 
               <input
@@ -321,7 +315,7 @@ const Products = () => {
                 value={formData.description}
                 onChange={handleChange}
                 placeholder="Description"
-                className="border p-1 bg-white rounded px-4"
+                className="border p-1 bg-white rounded-md px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
 
               <input
@@ -331,7 +325,7 @@ const Products = () => {
                 value={formData.price}
                 onChange={handleChange}
                 placeholder="Enter Price"
-                className="border p-1 bg-white rounded px-4"
+                className="border p-1 bg-white rounded-md px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
 
               <input
@@ -341,7 +335,7 @@ const Products = () => {
                 value={formData.stock}
                 onChange={handleChange}
                 placeholder="Enter Stock"
-                className="border p-1 bg-white rounded px-4"
+                className="border p-1 bg-white rounded-md px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
 
               <div className="w-full border rounded shadow-md  ">
