@@ -1,7 +1,7 @@
 import "./App.css";
 import { AuthProvider } from "./context/AuthContext";
 import { BrowserRouter as Router, Routes, Route } from "react-router";
-import Root from "./utils/Root";
+// import Root from "./utils/Root";
 import Login from "./pages/Login";
 import ProtecedRoutes from "./utils/ProtectedRoutes";
 import Dashboard from "./pages/Dashboard";
@@ -20,7 +20,7 @@ function App() {
     <AuthProvider>
       <Router>
         <Routes>
-          <Route path="/" element={<Root />} />
+          <Route path="/" element={<Login />} />
           <Route path="/login" element={<Login />} />
           <Route
             path="/admin-dashboard"

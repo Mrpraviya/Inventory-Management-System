@@ -48,26 +48,26 @@ const Summary = () => {
 
     <div className="p-5 ">
       <h2 className="text-3xl font-bold mb-4">Dashboard</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 my-6">
-        <div className="bg-blue-500 text-white p-4 rounded-lg shadow-md flex flex-col items-center justify-center hover:scale-[1.02]">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 my-6">
+        <div className="bg-blue-500 text-white p-8 rounded-lg shadow-md flex flex-col items-center justify-center hover:scale-[1.02]">
           <p className="text-2xl font-semibold">Total Products</p>
           <p className="text-2xl font-bold">{dashboardData.totalProducts}</p>
         </div>
-        <div className="bg-pink-500 text-white p-4 rounded-lg shadow-md flex flex-col items-center justify-center hover:scale-[1.02]">
+        <div className="bg-pink-500 text-white p-8 rounded-lg shadow-md flex flex-col items-center justify-center hover:scale-[1.02]">
           <p className="text-2xl font-semibold">Total Stocks</p>
           <p className="text-2xl font-bold">{dashboardData.totalStocks}</p>
         </div>
-        <div className="bg-yellow-500 text-white p-4 rounded-lg shadow-md flex flex-col items-center justify-center hover:scale-[1.02]">
+        <div className="bg-yellow-500 text-white p-8 rounded-lg shadow-md flex flex-col items-center justify-center hover:scale-[1.02]">
           <p className="text-2xl font-semibold">Orders Today</p>
           <p className="text-2xl font-bold">{dashboardData.ordersToday}</p>
         </div>
-        <div className="bg-purple-500 text-white p-4 rounded-lg shadow-md flex flex-col items-center justify-center hover:scale-[1.02]">
+        <div className="bg-purple-500 text-white p-8 rounded-lg shadow-md flex flex-col items-center justify-center hover:scale-[1.02]">
           <p className="text-2xl font-semibold">Revenue</p>
           <p className="text-2xl font-bold">$ {dashboardData.revenue}</p>
         </div>
       </div>
  
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <div className="bg-white p-4 rounded-lg shadow-md">
           <h3 className="text-xl font-semibold text-gray-800 mb-3">
             Out of Stocks
